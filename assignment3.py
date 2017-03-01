@@ -60,7 +60,7 @@ if __name__ == '__main__':
     parser.add_argument('url', help='enter the data url')
     args = parser.parse_args()
     if args.url:
-        data = downloadData('http://s3.amazonaws.com/cuny-is211-spring2015/weblog.csv')
+        data = downloadData(args.url)
         results = search_match(data)
         print 'Image requests account for {}% of all requests'.format(results)
         browser_num, browser_pop = browser_search(data)
