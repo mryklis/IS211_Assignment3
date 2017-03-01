@@ -1,19 +1,14 @@
 import urllib2
 import csv
 import re
-import decimal
 import argparse
 
 
 def downloadData(url):
-    # file = urllib2.urlopen(url)
-    # file = url
-
-    with open(url, 'rb') as file:
-        d_list = []
-        read_file = csv.reader(file)
-        for row in read_file:
-            d_list.append(row)
+    filer = csv.reader(urllib2.urlopen(url))
+    d_list = []
+    for row in filer:
+        d_list.append(row)
     return d_list
 
 def search_match(data):
@@ -65,7 +60,7 @@ if __name__ == '__main__':
     parser.add_argument('url', help='enter the data url')
     args = parser.parse_args()
     if args.url:
-        data = downloadData(args.url)
+        data = downloadData('http://s3.amazonaws.com/cuny-is211-spring2015/weblog.csv')
         results = search_match(data)
         print 'Image requests account for {}% of all requests'.format(results)
         browser_num, browser_pop = browser_search(data)
